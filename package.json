@@ -1,0 +1,25 @@
+{
+  "name": "@wooc/weakup",
+  "version": "0.0.1",
+  "description": "唤醒app",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tutouqiang/weakUp.git"
+  },
+  "keywords": [
+    "weakup",
+    "ts"
+  ],
+  "author": "zhangchao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tutouqiang/weakUp/issues"
+  },
+  "homepage": "https://github.com/tutouqiang/weakUp#readme"
+}

@@ -1,0 +1,11 @@
+/.git/
+/.vscode/
+/node_modules/
+.gitignore
+.npmignore
+.editorconfig
+package-lock.json
+*.ts
+
+# include the .d.ts files
+!*.d.ts
