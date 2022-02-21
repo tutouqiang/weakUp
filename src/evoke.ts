@@ -1,33 +1,35 @@
-import { Hidden, VisibilityChange } from './types';
+import { Hidden, VisibilityChange } from './types'
 
-let hidden: Hidden;
-let visibilityChange: VisibilityChange;
-let iframe: HTMLIFrameElement;
+let hidden: Hidden
+let visibilityChange: VisibilityChange
+let iframe: HTMLIFrameElement
 
 function getSupportedProperty(): void {
-  if (typeof document === 'undefined') return;
+  if (typeof document === 'undefined') return
 
   if (typeof document.hidden !== 'undefined') {
     // Opera 12.10 and Firefox 18 and later support
-    hidden = 'hidden';
-    visibilityChange = 'visibilitychange';
+    hidden = 'hidden'
+    visibilityChange = 'visibilitychange'
+    // @ts-ignore
   } else if (typeof document.msHidden !== 'undefined') {
-    hidden = 'msHidden';
-    visibilityChange = 'msvisibilitychange';
+    hidden = 'msHidden'
+    visibilityChange = 'msvisibilitychange'
+    // @ts-ignore
   } else if (typeof document.webkitHidden !== 'undefined') {
-    hidden = 'webkitHidden';
-    visibilityChange = 'webkitvisibilitychange';
+    hidden = 'webkitHidden'
+    visibilityChange = 'webkitvisibilitychange'
   }
 }
 
-getSupportedProperty();
+getSupportedProperty()
 
 /**
  * 判断页面是否隐藏（进入后台）
  */
 function isPageHidden(): boolean {
-  if (typeof hidden === 'undefined') return false;
-  return document[hidden] as boolean;
+  if (typeof hidden === 'undefined') return false
+  return document[hidden] as boolean
 }
 
 /**
@@ -35,7 +37,7 @@ function isPageHidden(): boolean {
  * @param {string}} [uri] - 需要打开的地址
  */
 export function evokeByLocation(uri: string): void {
-  window.top.location.href = uri;
+  window.top.location.href = uri
 }
 
 /**
@@ -43,13 +45,11 @@ export function evokeByLocation(uri: string): void {
  * @param {string} uri - 需要打开的地址
  */
 export function evokeByTagA(uri: string): void {
-  const tagA = document.createElement('a');
-
-  tagA.setAttribute('href', uri);
-  tagA.style.display = 'none';
-  document.body.appendChild(tagA);
-
-  tagA.click();
+  const tagA = document.createElement('a')
+  tagA.setAttribute('href', uri)
+  tagA.style.display = 'none'
+  document.body.appendChild(tagA)
+  tagA.click()
 }
 
 /**
@@ -58,12 +58,12 @@ export function evokeByTagA(uri: string): void {
  */
 export function evokeByIFrame(uri: string): void {
   if (!iframe) {
-    iframe = document.createElement('iframe');
-    iframe.style.cssText = 'display:none;border:0;width:0;height:0;';
-    document.body.appendChild(iframe);
+    iframe = document.createElement('iframe')
+    iframe.style.cssText = 'display:none;border:0;width:0;height:0;'
+    document.body.appendChild(iframe)
   }
 
-  iframe.src = uri;
+  iframe.src = uri
 }
 
 /**
@@ -73,19 +73,19 @@ export function evokeByIFrame(uri: string): void {
  */
 export function checkOpen(failure: () => void, timeout: number): void {
   const timer = setTimeout(() => {
-    const pageHidden = isPageHidden();
+    const pageHidden = isPageHidden()
     if (!pageHidden) {
-      failure();
+      failure()
     }
-  }, timeout);
+  }, timeout)
 
   if (typeof visibilityChange !== 'undefined') {
     document.addEventListener(visibilityChange, () => {
-      clearTimeout(timer);
-    });
+      clearTimeout(timer)
+    })
   } else {
     window.addEventListener('pagehide', () => {
-      clearTimeout(timer);
-    });
+      clearTimeout(timer)
+    })
   }
 }

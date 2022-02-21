@@ -1,0 +1,12 @@
+bin/
+node_modules/
+dist/
+README.md
+.npmignore
+.vscode/*
+.husky/*
+.eslintignore
+.gitignore
+commitline.config.js
+tsconfig.json
+.eslintrc.js
